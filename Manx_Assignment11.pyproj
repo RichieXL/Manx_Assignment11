@@ -41,7 +41,11 @@
   <ItemGroup>
     <Folder Include="DataCleanPackage\" />
     <Folder Include="DataPackage\" />
+    <Folder Include="DataFile\" />
     <Folder Include="PricePackage\" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="DataFile\fuelPurchaseData.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
