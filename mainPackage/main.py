@@ -13,8 +13,10 @@
 # Anything else that's relevant:
 
 from DataCleanPackage.dataclean import *
+from DataPackage.data import *
 
 if __name__ == "__main__":
     print("running")
     cleaner = dataclean("Data/fuelPurchaseData.csv")
+    anomalies = FuelDataCleaner("Data/fuelPurchaseData.csv")
     cleaner.clean()
