@@ -4,7 +4,7 @@
     <SchemaVersion>2.0</SchemaVersion>
     <ProjectGuid>37a5338c-778d-4945-a3cf-b51fe225dea6</ProjectGuid>
     <ProjectHome>.</ProjectHome>
-    <StartupFile>PricePackage\price.py</StartupFile>
+    <StartupFile>mainPackage\main.py</StartupFile>
     <SearchPath>
     </SearchPath>
     <WorkingDirectory>.</WorkingDirectory>
@@ -33,6 +33,12 @@
     <Compile Include="DataPackage\__init__.py">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="mainPackage\main.py">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="mainPackage\__init__.py">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="PricePackage\price.py" />
     <Compile Include="PricePackage\__init__.py">
       <SubType>Code</SubType>
@@ -41,11 +47,13 @@
   <ItemGroup>
     <Folder Include="DataCleanPackage\" />
     <Folder Include="DataPackage\" />
-    <Folder Include="DataFile\" />
+    <Folder Include="Data\" />
+    <Folder Include="mainPackage\" />
     <Folder Include="PricePackage\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="DataFile\fuelPurchaseData.csv" />
+    <Content Include="Data\cleanedData.csv" />
+    <Content Include="Data\fuelPurchaseData.csv" />
   </ItemGroup>
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Python Tools\Microsoft.PythonTools.targets" />
   <!-- Uncomment the CoreCompile target to enable the Build command in
