@@ -14,12 +14,13 @@
 
 from DataCleanPackage.dataclean import *
 from AddressPackage.address import *
+from DataPackage.data import *
+
 
 if __name__ == "__main__":
     print("running")
     cleaner = dataclean("Data/fuelPurchaseData.csv")
     cleaner.clean()
-
     # fb8b7760-1b3d-11f0-8785-f37e8f1e4284
     api_key = "fb8b7760-1b3d-11f0-8785-f37e8f1e4284"
     if api_key:
@@ -32,4 +33,5 @@ if __name__ == "__main__":
             print(f"ZIP code update failed gracefully: {e}")
     else:
         print("API key not found. Skipping ZIP code enrichment.")
-
+    anomalies = FuelDataCleaner("Data/cleanedData.csv")
+    anomalies.process()
