@@ -8,7 +8,7 @@
 # Brief Description of the assignment: This assignment is about cleaning up the data in a .csv file 
 
 # Brief Description of what this module does. This module instantiates the class dataClean. This class removes any duplicate rows and sets all rows in gross price to have 2 decimal places.
-# Citations: https://chatgpt.com/c/680028dd-c3a4-800b-a347-6a2372dc86e3
+# Citations: ChatGPT: https://chatgpt.com/c/680028dd-c3a4-800b-a347-6a2372dc86e3
 
 # Anything else that's relevant:
 
@@ -16,12 +16,15 @@ import pandas as pd
 import os
 
 class dataclean:
+    """
+    A utility class for cleaning transaction data in a CSV file.
+    """
     def __init__(self, input_file, output_folder='Data', output_file='cleanedData.csv'):
         """
         Initializes the cleaner with input and output file paths.
-        @param input_file: str: Path to the input CSV file.
-        @param output_folder: str: Directory where cleaned CSV will be saved.
-        @param output_file: str: Name of the cleaned CSV file.
+        @param input_file str: Path to the input CSV file.
+        @param output_folder str: Directory where cleaned CSV will be saved.
+        @param output_file str: Name of the cleaned CSV file.
         """
         self.input_file = input_file
         self.output_folder = output_folder
