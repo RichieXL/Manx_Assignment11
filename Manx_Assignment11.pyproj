@@ -39,8 +39,8 @@
     <Compile Include="mainPackage\__init__.py">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PricePackage\price.py" />
-    <Compile Include="PricePackage\__init__.py">
+    <Compile Include="AddressPackage\address.py" />
+    <Compile Include="AddressPackage\__init__.py">
       <SubType>Code</SubType>
     </Compile>
   </ItemGroup>
@@ -49,7 +49,7 @@
     <Folder Include="DataPackage\" />
     <Folder Include="Data\" />
     <Folder Include="mainPackage\" />
-    <Folder Include="PricePackage\" />
+    <Folder Include="AddressPackage\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Data\cleanedData.csv" />
