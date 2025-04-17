@@ -52,6 +52,7 @@
     <Folder Include="AddressPackage\" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="Data\.csv" />
     <Content Include="Data\cleanedData.csv" />
     <Content Include="Data\fuelPurchaseData.csv" />
   </ItemGroup>

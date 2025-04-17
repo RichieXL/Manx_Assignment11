@@ -20,3 +20,4 @@ if __name__ == "__main__":
     cleaner = dataclean("Data/fuelPurchaseData.csv")
     anomalies = FuelDataCleaner("Data/fuelPurchaseData.csv")
     cleaner.clean()
+    anomalies.process()

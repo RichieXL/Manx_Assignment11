@@ -16,12 +16,12 @@ import pandas as pd
 import os
 
 class FuelDataCleaner:
-    def __init__(self, input_path, cleaned_path, anomalies_path):
+    def __init__(self, input_path, cleaned_path = "Data", anomalies_path='dataAnomalies.csv'):
         """
         Initializes removing and adding rows into a new csv file.
         @param input_path: str: Path to the input CSV file.
-        @param cleaned_path: where data will be removed
-        @param anomalies_path: where unnesesary data will be place
+        @param cleaned_path: where data will be moved to
+        @param anomalies_path: where unnesesary data will be place ina csv
         """
         self.input_path = input_path
         self.cleaned_path = cleaned_path
@@ -32,28 +32,24 @@ class FuelDataCleaner:
         self.df = pd.read_csv(self.input_path, dtype={"Transaction Number": str})
         print("Data loaded successfully.")
 
-    def format_gross_price(self):
-        if 'Gross Price' in self.df.columns:
-            self.df['Gross Price'] = self.df['Gross Price'].round(2)
-        else:
-            print("Warning: 'Gross Price' column not found.")
-
-    def remove_duplicates(self):
+    def remove_pepsi(self):
+        """Removes rows where 'pepsi' (case-insensitive) is found in the 'Fuel Type' column."""
         initial_rows = len(self.df)
-        self.df.drop_duplicates(inplace=True)
-        dropped_rows = initial_rows - len(self.df)
-        if dropped_rows > 0:
-            print(f"[FuelDataCleaner] Removed {dropped_rows} duplicate rows.")
+        pepsi_rows = self.df[self.df['Fuel Type'].str.lower().str.contains('pepsi')]
+        self.df = self.df[~self.df['Fuel Type'].str.lower().str.contains('pepsi')].copy()
+        removed_rows = len(pepsi_rows)
+        if removed_rows > 0:
+            print(f"[FuelDataCleaner] Removed {removed_rows} rows containing 'pepsi' in 'Fuel Type'.")
         else:
-            print("[FuelDataCleaner] No duplicate rows found.")
+            print("[FuelDataCleaner] No rows found with 'pepsi' in 'Fuel Type'.")
 
     def extract_anomalies(self):
-        anomalies = self.df[self.df['Fuel Type'].str.lower() == 'pepsi'].copy() # Use .copy() to avoid SettingWithCopyWarning
+        anomalies = self.df[self.df['Fuel Type'].str.lower() == 'pepsi'].copy()
         if not os.path.exists('Data'):
             os.makedirs('Data')
         anomalies.to_csv(self.anomalies_path, index=False)
         print(f"[FuelDataCleaner] Anomalies (Fuel Type 'pepsi') extracted to: {self.anomalies_path}")
-        self.df = self.df[self.df['Fuel Type'].str.lower() != 'pepsi'].copy() # Use .copy()
+        self.df = self.df[self.df['Fuel Type'].str.lower() != 'pepsi'].copy()
 
     def save_clean_data(self):
         if not os.path.exists(os.path.dirname(self.cleaned_path)):
@@ -62,9 +58,10 @@ class FuelDataCleaner:
         print(f"[FuelDataCleaner] Cleaned data (excluding anomalies) saved to: {self.cleaned_path}")
 
     def process(self):
-        print("[FuelDataCleaner] Processing data...")
-        self.remove_duplicates()
+        """
+        Runs the process in a specific order
+        """
+        self.load_data()
         self.extract_anomalies()
-        self.format_gross_price()
+        self.remove_pepsi()
         self.save_clean_data()
-        print("[FuelDataCleaner] Data processing complete.")
