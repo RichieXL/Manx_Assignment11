@@ -15,8 +15,8 @@
 import pandas as pd
 import os
 
-class FuelDataCleaner:
-    def __init__(self, input_path, cleaned_path = "Data", anomalies_path='dataAnomalies.csv'):
+class data:
+    def __init__(self, input_path, cleaned_path = "Data/cleanedData.csv", anomalies_path='Data/dataAnomalies.csv'):
         """
         Initializes removing and adding rows into a new csv file.
         @param input_path: str: Path to the input CSV file.
@@ -44,12 +44,16 @@ class FuelDataCleaner:
             print("[FuelDataCleaner] No rows found with 'pepsi' in 'Fuel Type'.")
 
     def extract_anomalies(self):
-        anomalies = self.df[self.df['Fuel Type'].str.lower() == 'pepsi'].copy()
-        if not os.path.exists('Data'):
-            os.makedirs('Data')
+        anomalies = self.df[self.df['Fuel Type'].str.lower().str.contains('pepsi', na=False)].copy()
+
+        anomalies_dir = os.path.dirname(self.anomalies_path)
+        if anomalies_dir and not os.path.exists(anomalies_dir):
+            os.makedirs(anomalies_dir, exist_ok=True)
+
         anomalies.to_csv(self.anomalies_path, index=False)
-        print(f"[FuelDataCleaner] Anomalies (Fuel Type 'pepsi') extracted to: {self.anomalies_path}")
-        self.df = self.df[self.df['Fuel Type'].str.lower() != 'pepsi'].copy()
+        print(f"[FuelDataCleaner] Anomalies (Fuel Type contains 'pepsi') extracted to: {self.anomalies_path}")
+
+        self.df = self.df[~self.df['Fuel Type'].str.lower().str.contains('pepsi', na=False)].copy()
 
     def save_clean_data(self):
         if not os.path.exists(os.path.dirname(self.cleaned_path)):
