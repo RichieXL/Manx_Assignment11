@@ -18,6 +18,6 @@ from DataPackage.data import *
 if __name__ == "__main__":
     print("running")
     cleaner = dataclean("Data/fuelPurchaseData.csv")
-    anomalies = FuelDataCleaner("Data/fuelPurchaseData.csv")
     cleaner.clean()
+    anomalies = FuelDataCleaner("Data/cleanedData.csv")
     anomalies.process()
