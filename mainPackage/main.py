@@ -1,4 +1,4 @@
-# File Name : dataclean.py
+# File Name : main.py
 # Student Name: Dylan Sams, Richie James, Saivamsi Reddy Amireddy
 # email:  samsds@mail.uc.edu, amiredsr@mail.uc.edu, james2c4@mail.uc.edu 
 # Assignment Number: Assignment 11
@@ -7,7 +7,7 @@
 # Semester/Year:   Spring 2025
 # Brief Description of the assignment: This assignment is about cleaning up the data in a .csv file 
 
-# Brief Description of what this module does. 
+# Brief Description of what this module does. This module instantiates the classes dataclean, address, and data. Then runs all modules in each class.
 # Citations: 
 
 # Anything else that's relevant:
@@ -18,14 +18,14 @@ from DataPackage.data import *
 
 
 if __name__ == "__main__":
-    print("running")
+    
     cleaner = dataclean("Data/fuelPurchaseData.csv")
     cleaner.clean()
     # fb8b7760-1b3d-11f0-8785-f37e8f1e4284
     api_key = "fb8b7760-1b3d-11f0-8785-f37e8f1e4284"
     if api_key:
         try:
-            zip_filler = ZipCodeFiller(cleaner.df, api_key)
+            zip_filler = address(cleaner.df, api_key)
             zip_filler.fill_missing_zip_codes()
 
             cleaner.save_clean_data()  # Save updated file
@@ -33,5 +33,5 @@ if __name__ == "__main__":
             print(f"ZIP code update failed gracefully: {e}")
     else:
         print("API key not found. Skipping ZIP code enrichment.")
-    anomalies = FuelDataCleaner("Data/cleanedData.csv")
+    anomalies = data("Data/cleanedData.csv")
     anomalies.process()
